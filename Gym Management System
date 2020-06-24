@@ -1,0 +1,931 @@
+#include<iostream>
+#include<fstream>
+#include<string>
+#include<conio.h>
+void Menu();
+void onemonth();
+void threemonth();
+void sixmonth();
+void oneyear();
+void View();
+#include <stdlib.h>
+using namespace std;
+
+struct members
+{
+	string name,id;
+		int cashin;
+};
+int main()
+{
+	Menu();
+	system("pause");
+}
+
+void Menu()
+{
+	int choice;
+	cout << "**********************************************************************************\n\n";
+	cout << "	  WELCOME TO SHEPHER ABRAHAM GYM\n\n";
+	cout << "**********************************************************************************\n\n\n";
+	cout << "============================================\n\n";
+	cout << "\t\tSELECT PLANS\n\n";
+	cout << "============================================\n\n";
+	cout << "1. One-month plan 5000 Rs\n2. Three months plan 7000 Rs\n3. Six months plan 10,000 Rs\n4. One Year plan 15000Rs\n5: View Record\n6: Exit\nChoice "; cin >> choice;
+	
+	switch(choice)
+	{
+	case 1:
+		onemonth();
+		Menu();
+		break;
+	case 2:
+		threemonth();
+		Menu();
+		break;
+	case 3:
+		sixmonth();
+		Menu();
+		break;
+	case 4:
+		oneyear();
+		Menu();
+		break;
+	case 5:
+		View();
+		Menu();
+		break;
+	case 6:
+		exit(6);
+	}
+
+}
+
+void View()
+{
+	int choice;
+	cout << "1. One-month plan 5000 Rs\n2. Three months plan 7000 Rs\n3. Six months plan 10,000 Rs\n4. One Year plan 15000Rs\n5: Back\n6: Exit\nChoice\n";
+	cin >> choice;
+	if (choice == 1) {
+
+		ifstream file("gymrecord.txt");
+		string line;
+		while (!file.eof())
+		{
+			getline(file, line);
+			cout << line << endl;
+		}
+		file.close();
+		Menu();
+	}
+	else if (choice == 2) {
+		ifstream file("gymrecord - Copy (2).txt");
+		string line;
+		while (!file.eof())
+		{
+			getline(file, line);
+			cout << line << endl;
+		}
+		file.close();
+		Menu();
+	}
+	else if (choice == 3) {
+		ifstream file("gymrecord - Copy (3).txt");
+		string line;
+		while (!file.eof())
+		{
+			getline(file, line);
+			cout << line << endl;
+		}
+		file.close();
+		Menu();
+	}
+	else if (choice == 4) {
+		ifstream file("gymrecord - Copy (4).txt");
+		string line;
+		while (!file.eof())
+		{
+			getline(file, line);
+			cout << line << endl;
+		}
+		file.close();
+		Menu();
+	}
+
+	else if (choice == 6)
+		exit(5);
+	else if (choice == 5)
+		Menu();
+
+
+
+}
+
+void onemonth()
+{	//m1 for month1
+	members m1;
+	char op;
+	int choice;
+	ofstream file;
+	file.open("gymrecord.txt", ios::app);
+	cout << "1: Add Members\n2: Update Record\n3: Back\nChoice\n"; cin >> choice;
+	if (choice == 1) {
+		int i = 0;
+		do {
+			cout << "Enter Name OneMonth Member " << i + 1 << endl; cin >> m1.name;
+			cout << "Enter ID\n"; cin >> m1.id;
+			cout << "Cash In Rps\n"; cin >> m1.cashin;
+			if (m1.cashin < 5000)
+			{
+				cout << "Sorry You are Broke\n";
+				break;
+			}
+			else
+			{
+				cout << "Thanks For Choosing our Gym\n";
+				cout << "*****************************\n";
+				cout << "Information stored\n";
+				cout << "*****************************\n";
+				file << m1.id << " " "OneMonth" << " " << m1.name << " " << m1.cashin << endl;
+				cout << "Do you want to try again Y/N ?" << endl;
+				cin >> op;
+			}
+			i++;
+
+		} while (op != 'N' && i < 5);
+	}
+	else if (choice == 2) {
+
+
+		//Search
+
+		string idsearch;
+		m1.id, m1.name;
+		ifstream search;
+		search.open("gymrecord.txt", ios::out | ios::app);
+		string line;
+		bool found = false;
+		cout << "\n\tEnter ID to search record=\t";
+		cin >> idsearch;
+		while (getline(search, line))
+		{
+			m1.id = line.substr(0, 4);
+			if (m1.id == idsearch)
+			{
+				found = true;
+				break;
+			}
+			else
+			{
+				found = false;
+			}
+		}
+		if (found == true)
+		{
+			m1.name = line.substr(5, line.length() - 4);
+
+			cout << "\tID = \t " << m1.id << endl;
+			cout << "\t\INFORMATION = \t " << m1.name << "\t " << endl;
+		}
+		else
+		{
+			cout << "\n\tThe given ID does not exist. PLease try again.\n";
+
+		}
+
+
+		//update
+		int k = 0;
+		line;
+		string find;
+		ofstream myfile;
+		myfile.open("gymrecord.txt", ios::ate | ios::app);
+
+		while (k != 2) {
+
+
+			cout << "Press 1 for Update " << endl;
+
+			cin >> k;
+
+			if (k == 1)
+			{
+
+				cout << "Name of Member You want to Update " << endl;
+				cin >> find;
+				ifstream file;
+
+				file.open("gymrecord.txt", ios::ate | ios::app);
+				while (!file.eof() && line != find)
+				{
+
+					getline(file, line);
+				}
+
+				cout << "Enter New ID " << endl;
+				cin >> m1.id;
+
+				cout << "Enter New Name" << endl;
+				cin >> m1.name;
+				cout << "Enter New Package\n1. One-month plan 5000 Rs\n2. Three months plan 7000 Rs\n3. Six months plan 10,000 Rs\n4. One Year plan 15000Rs\nChoice\n ";
+				cin >> choice;
+				switch (choice)
+				{
+				case 1:
+					cout << "Cash In\n";
+					cin >> m1.cashin;
+					if (m1.cashin < 5000)
+					{
+						cout << " Get Some money Bro\n";
+						break;
+					}
+					else
+					{
+						cout << "Thanks For Choosing our Gym\n";
+						cout << "*****************************\n";
+						cout << "Information Updated\n";
+						cout << "*****************************\n\n";
+						myfile << idsearch << " " << "(Updated) to " << m1.id << " " << "OneMonth" << " " << m1.name << " " << m1.cashin << endl;
+						break;
+					}
+				case 2:
+					cout << "Cash In\n";
+					cin >> m1.cashin;
+					if (m1.cashin < 7000)
+					{
+						cout << " Get Some money Bro\n";
+						break;
+					}
+					else
+					{
+						cout << "Thanks For Choosing our Gym\n";
+						cout << "*****************************\n";
+						cout << "Information Updated\n";
+						cout << "*****************************\n\n";
+						myfile << idsearch << " " << "(Updated) to " << m1.id << " " << "ThreeMonth" << " " << m1.name << " " << m1.cashin << endl;
+						break;
+
+
+					}
+				case 3:
+					cout << "Cash In\n";
+					cin >> m1.cashin;
+					if (m1.cashin < 10000)
+					{
+						cout << " Get Some money Bro\n";
+						break;
+					}
+					else
+					{
+						cout << "Thanks For Choosing our Gym\n";
+						cout << "*****************************\n";
+						cout << "Information Updated\n";
+						cout << "*****************************\n";
+						myfile << idsearch << " " << "(Updated) to " << m1.id << " " << "SixMonth" << " " << m1.name << " " << m1.cashin << endl;
+						break;
+					}
+
+				case 4:
+					cout << "Cash In\n";
+					cin >> m1.cashin;
+					if (m1.cashin < 15000)
+					{
+						cout << " Get Some money Bro\n";
+						break;
+					}
+					else
+					{
+						cout << "Thanks For Choosing our Gym\n";
+						cout << "*****************************\n";
+						cout << "Information Updated\n";
+						cout << "*****************************\n\n";
+						myfile << idsearch << " " << "(Updated) to " << m1.id << " " << "OneYear" << " " << m1.name << " " << m1.cashin << endl;
+						break;
+					}
+				}
+
+
+
+
+			}
+			if (k == 2) {
+				myfile.close();
+			}
+
+			break;
+
+
+		}
+	}
+	else if(choice==3)
+	Menu();
+
+
+}
+
+void threemonth()
+{	//m2 for threemonth
+	members m2;
+	char op;
+	int choice;
+	ofstream file;
+	file.open("gymrecord - Copy (2).txt", ios::app);
+	cout << "1: Add Members\n2: Update Record\n3: Back\nChoice\n"; cin >> choice;
+	if (choice == 1) {
+		int i = 0;
+		do {
+			cout << "Enter Name ThreeMonth Member " << i + 1 << endl; cin >> m2.name;
+			cout << "Enter ID\n"; cin >> m2.id;
+			cout << "Cash In Rps\n"; cin >> m2.cashin;
+			if (m2.cashin < 7000)
+			{
+				cout << "Sorry You are Broke\n";
+				break;
+			}
+			else
+			{
+				cout << "Thanks For Choosing our Gym\n";
+				cout << "*****************************\n";
+				cout << "Information stored\n";
+				cout << "*****************************\n";
+				file << m2.id << " " "ThreeMonth" << " " << m2.name << " " << m2.cashin << endl;
+				cout << "Do you want to try again Y/N ?" << endl;
+				cin >> op;
+			}
+			i++;
+
+		} while (op != 'N' && i < 5);
+	}
+	else if (choice == 2) {
+
+
+		//Search
+
+		string idsearch;
+		m2.id, m2.name;
+		ifstream search;
+		search.open("gymrecord - Copy (2).txt", ios::out | ios::app);
+		string line;
+		bool found = false;
+		cout << "\n\tEnter ID to search record=\t";
+		cin >> idsearch;
+		while (getline(search, line))
+		{
+			m2.id = line.substr(0, 4);
+			if (m2.id == idsearch)
+			{
+				found = true;
+				break;
+			}
+			else
+			{
+				found = false;
+			}
+		}
+		if (found == true)
+		{
+			m2.name = line.substr(5, line.length() - 4);
+
+			cout << "\tID = \t " << m2.id << endl;
+			cout << "\t\INFORMATION = \t " << m2.name << "\t " << endl;
+		}
+		else
+		{
+			cout << "\n\tThe given ID does not exist. PLease try again.\n";
+
+		}
+
+
+		//update
+		int k = 0;
+		line;
+		string find;
+		ofstream myfile;
+		myfile.open("gymrecord - Copy (2).txt", ios::ate | ios::app);
+
+		while (k != 2) {
+
+
+			cout << "Press 1 for Update " << endl;
+
+			cin >> k;
+
+			if (k == 1)
+			{
+
+				cout << "Name of Member You want to Update " << endl;
+				cin >> find;
+				ifstream file;
+
+				file.open("gymrecord - Copy (2).txt", ios::ate | ios::app);
+				while (!file.eof() && line != find)
+				{
+
+					getline(file, line);
+				}
+
+				cout << "Enter New ID " << endl;
+				cin >> m2.id;
+
+				cout << "Enter New Name" << endl;
+				cin >> m2.name;
+				cout << "Enter New Package\n1. One-month plan 5000 Rs\n2. Three months plan 7000 Rs\n3. Six months plan 10,000 Rs\n4. One Year plan 15000Rs\nChoice\n ";
+				cin >> choice;
+				switch (choice)
+				{
+				case 1:
+					cout << "Cash In\n";
+					cin >> m2.cashin;
+					if (m2.cashin < 5000)
+					{
+						cout << " Get Some money Bro\n";
+						break;
+					}
+					else
+					{
+						cout << "Thanks For Choosing our Gym\n";
+						cout << "*****************************\n";
+						cout << "Information Updated\n";
+						cout << "*****************************\n\n";
+						myfile << idsearch << " " << "(Updated) to " << m2.id << " " << "OneMonth" << " " << m2.name << " " << m2.cashin << endl;
+						break;
+					}
+				case 2:
+					cout << "Cash In\n";
+					cin >> m2.cashin;
+					if (m2.cashin < 7000)
+					{
+						cout << " Get Some money Bro\n";
+						break;
+					}
+					else
+					{
+						cout << "Thanks For Choosing our Gym\n";
+						cout << "*****************************\n";
+						cout << "Information Updated\n";
+						cout << "*****************************\n\n";
+						myfile << idsearch << " " << "(Updated) to " << m2.id << " " << "ThreeMonth" << " " << m2.name << " " << m2.cashin << endl;
+						break;
+
+
+					}
+				case 3:
+					cout << "Cash In\n";
+					cin >> m2.cashin;
+					if (m2.cashin < 10000)
+					{
+						cout << " Get Some money Bro\n";
+						break;
+					}
+					else
+					{
+						cout << "Thanks For Choosing our Gym\n";
+						cout << "*****************************\n";
+						cout << "Information Updated\n";
+						cout << "*****************************\n";
+						myfile << idsearch << " " << "(Updated) to " << m2.id << " " << "SixMonth" << " " << m2.name << " " << m2.cashin << endl;
+						break;
+					}
+
+				case 4:
+					cout << "Cash In\n";
+					cin >> m2.cashin;
+					if (m2.cashin < 15000)
+					{
+						cout << " Get Some money Bro\n";
+						break;
+					}
+					else
+					{
+						cout << "Thanks For Choosing our Gym\n";
+						cout << "*****************************\n";
+						cout << "Information Updated\n";
+						cout << "*****************************\n\n";
+						myfile << idsearch << " " << "(Updated) to " << m2.id << " " << "OneYear" << " " << m2.name << " " << m2.cashin << endl;
+						break;
+					}
+				}
+
+
+
+
+			}
+			if (k == 2) {
+				myfile.close();
+			}
+
+			break;
+
+
+		}
+	}
+	else if (choice == 3)
+	Menu();
+}
+
+void sixmonth()
+{
+	//m3 for sixmonths
+	members m3;
+	char op;
+	int choice;
+	ofstream file;
+	file.open("gymrecord - Copy (3).txt", ios::app);
+	cout << "1: Add Members\n2: Update Record\n3: Back\nChoice\n"; cin >> choice;
+	if (choice == 1) {
+		int i = 0;
+		do {
+			cout << "Enter Name SixMonth Member " << i + 1 << endl; cin >> m3.name;
+			cout << "Enter ID\n"; cin >> m3.id;
+			cout << "Cash In Rps\n"; cin >> m3.cashin;
+			if (m3.cashin < 7000)
+			{
+				cout << "Sorry You are Broke\n";
+				break;
+			}
+			else
+			{
+				cout << "Thanks For Choosing our Gym\n";
+				cout << "*****************************\n";
+				cout << "Information stored\n";
+				cout << "*****************************\n";
+				file << m3.id << " " "SixMonth" << " " << m3.name << " " << m3.cashin << endl;
+				cout << "Do you want to try again Y/N ?" << endl;
+				cin >> op;
+			}
+			i++;
+
+		} while (op != 'N' && i < 5);
+	}
+	else if (choice == 2) {
+
+
+		//Search
+
+		string idsearch;
+		m3.id, m3.name;
+		ifstream search;
+		search.open("gymrecord - Copy (3).txt", ios::out | ios::app);
+		string line;
+		bool found = false;
+		cout << "\n\tEnter ID to search record=\t";
+		cin >> idsearch;
+		while (getline(search, line))
+		{
+			m3.id = line.substr(0, 4);
+			if (m3.id == idsearch)
+			{
+				found = true;
+				break;
+			}
+			else
+			{
+				found = false;
+			}
+		}
+		if (found == true)
+		{
+			m3.name = line.substr(5, line.length() - 4);
+
+			cout << "\tID = \t " << m3.id << endl;
+			cout << "\t\INFORMATION = \t " << m3.name << "\t " << endl;
+		}
+		else
+		{
+			cout << "\n\tThe given ID does not exist. PLease try again.\n";
+
+		}
+
+
+		//update
+		int k = 0;
+		line;
+		string find;
+		ofstream myfile;
+		myfile.open("gymrecord - Copy (3).txt", ios::ate | ios::app);
+
+		while (k != 2) {
+
+
+			cout << "Press 1 for Update " << endl;
+
+			cin >> k;
+
+			if (k == 1)
+			{
+
+				cout << "Name of Member You want to Update " << endl;
+				cin >> find;
+				ifstream file;
+
+				file.open("gymrecord - Copy (3).txt", ios::ate | ios::app);
+				while (!file.eof() && line != find)
+				{
+
+					getline(file, line);
+				}
+
+				cout << "Enter New ID " << endl;
+				cin >> m3.id;
+
+				cout << "Enter New Name" << endl;
+				cin >> m3.name;
+				cout << "Enter New Package\n1. One-month plan 5000 Rs\n2. Three months plan 7000 Rs\n3. Six months plan 10,000 Rs\n4. One Year plan 15000Rs\nChoice\n ";
+				cin >> choice;
+				switch (choice)
+				{
+				case 1:
+					cout << "Cash In\n";
+					cin >> m3.cashin;
+					if (m3.cashin < 5000)
+					{
+						cout << " Get Some money Bro\n";
+						break;
+					}
+					else
+					{
+						cout << "Thanks For Choosing our Gym\n";
+						cout << "*****************************\n";
+						cout << "Information Updated\n";
+						cout << "*****************************\n\n";
+						myfile << idsearch << " " << "(Updated) to " << m3.id << " " << "OneMonth" << " " << m3.name << " " << m3.cashin << endl;
+						break;
+					}
+				case 2:
+					cout << "Cash In\n";
+					cin >> m3.cashin;
+					if (m3.cashin < 7000)
+					{
+						cout << " Get Some money Bro\n";
+						break;
+					}
+					else
+					{
+						cout << "Thanks For Choosing our Gym\n";
+						cout << "*****************************\n";
+						cout << "Information Updated\n";
+						cout << "*****************************\n\n";
+						myfile << idsearch << " " << "(Updated) to " << m3.id << " " << "ThreeMonth" << " " << m3.name << " " << m3.cashin << endl;
+						break;
+
+
+					}
+				case 3:
+					cout << "Cash In\n";
+					cin >> m3.cashin;
+					if (m3.cashin < 10000)
+					{
+						cout << " Get Some money Bro\n";
+						break;
+					}
+					else
+					{
+						cout << "Thanks For Choosing our Gym\n";
+						cout << "*****************************\n";
+						cout << "Information Updated\n";
+						cout << "*****************************\n";
+						myfile << idsearch << " " << "(Updated) to " << m3.id << " " << "SixMonth" << " " << m3.name << " " << m3.cashin << endl;
+						break;
+					}
+
+				case 4:
+					cout << "Cash In\n";
+					cin >> m3.cashin;
+					if (m3.cashin < 15000)
+					{
+						cout << " Get Some money Bro\n";
+						break;
+					}
+					else
+					{
+						cout << "Thanks For Choosing our Gym\n";
+						cout << "*****************************\n";
+						cout << "Information Updated\n";
+						cout << "*****************************\n\n";
+						myfile << idsearch << " " << "(Updated) to " << m3.id << " " << "OneYear" << " " << m3.name << " " << m3.cashin << endl;
+						break;
+					}
+				}
+
+
+
+
+			}
+			if (k == 2) {
+				myfile.close();
+			}
+
+			break;
+
+
+		}
+	}
+	else if (choice == 3)
+	Menu();
+	
+}
+
+
+
+
+void oneyear()
+{	//m1 for 1year
+	members m4;
+	char op;
+	int choice;
+	ofstream file;
+	file.open("gymrecord - Copy (4).txt", ios::app);
+	cout << "1: Add Members\n2: Update Record\n3: Back\nChoice\n"; cin >> choice;
+	if (choice == 1) {
+		int i = 0;
+		do {
+			cout << "Enter Name OneYear Member " << i + 1 << endl; cin >> m4.name;
+			cout << "Enter ID\n"; cin >> m4.id;
+			cout << "Cash In Rps\n"; cin >> m4.cashin;
+			if (m4.cashin < 15000)
+			{
+				cout << "Sorry You are Broke\n";
+				break;
+			}
+			else
+			{
+				cout << "Thanks For Choosing our Gym\n";
+				cout << "*****************************\n";
+				cout << "Information stored\n";
+				cout << "*****************************\n";
+				file << m4.id << " " "OneYear" << " " << m4.name << " " << m4.cashin << endl;
+				cout << "Do you want to try again Y/N ?" << endl;
+				cin >> op;
+			}
+			i++;
+
+		} while (op != 'N' && i < 5);
+	}
+	else if (choice == 2) {
+
+
+		//Search
+		
+		string idsearch;
+		m4.id, m4.name;
+		ifstream search;
+		search.open("gymrecord - Copy (4).txt", ios::out | ios::app);
+		string line;
+		bool found = false;
+		cout << "\n\tEnter ID to search record=\t";
+		cin >> idsearch;
+		while (getline(search, line))
+		{
+			m4.id = line.substr(0, 4);
+			if (m4.id == idsearch)
+			{
+				found = true;
+				break;
+			}
+			else
+			{
+				found = false;
+			}
+		}
+		if (found == true)
+		{
+			m4.name = line.substr(5, line.length() - 4);
+
+			cout << "\tID = \t " << m4.id << endl;
+			cout << "\t\INFORMATION = \t " << m4.name << "\t " << endl;
+		}
+		else
+		{
+			cout << "\n\tThe given ID does not exist. PLease try again.\n";
+
+		}
+
+
+		//update
+		int k = 0;
+		 line;
+		string find;
+		ofstream myfile;
+		myfile.open("gymrecord - Copy (4).txt", ios::ate | ios::app);
+
+		while (k != 2) {
+
+
+			cout << "Press 1 for Update " << endl;
+
+			cin >> k;
+
+			if (k == 1)
+			{
+
+				cout << "Name of Member You want to Update " << endl;
+				cin >> find;
+				ifstream file;
+
+				file.open("gymrecord - Copy (4).txt",ios::ate|ios::app);
+				while (!file.eof() && line != find)
+				{
+
+					getline(file, line);
+				}
+
+				cout << "Enter New ID " << endl;
+				cin >> m4.id;
+
+				cout << "Enter New Name" << endl;
+				cin >> m4.name;
+				cout << "Enter New Package\n1. One-month plan 5000 Rs\n2. Three months plan 7000 Rs\n3. Six months plan 10,000 Rs\n4. One Year plan 15000Rs\nChoice\n ";
+				cin >> choice;
+				switch(choice)
+				{
+				case 1:
+					cout << "Cash In\n";
+					cin >> m4.cashin;
+					if (m4.cashin < 5000)
+					{
+						cout << " Get Some money Bro\n";
+						break;
+					}
+					else
+					{
+						cout << "Thanks For Choosing our Gym\n";
+						cout << "*****************************\n";
+						cout << "Information Updated\n";
+						cout << "*****************************\n\n";
+						myfile << idsearch << " " << "(Updated) to " << m4.id << " " << "OneMonth" << " " << m4.name << " " << m4.cashin << endl;
+						break;
+					}
+				case 2:
+					cout << "Cash In\n";
+					cin >> m4.cashin;
+					if (m4.cashin < 7000)
+					{
+						cout << " Get Some money Bro\n";
+						break;
+					}
+					else
+					{
+						cout << "Thanks For Choosing our Gym\n";
+						cout << "*****************************\n";
+						cout << "Information Updated\n";
+						cout << "*****************************\n\n";
+						myfile << idsearch << " " << "(Updated) to " << m4.id << " " << "ThreeMonth" << " " << m4.name << " " << m4.cashin << endl;
+						break;
+
+						
+					}
+				case 3:
+					cout << "Cash In\n";
+					cin >> m4.cashin;
+					if (m4.cashin < 10000)
+					{
+						cout << " Get Some money Bro\n";
+						break;
+					}
+					else
+					{
+						cout << "Thanks For Choosing our Gym\n";
+						cout << "*****************************\n";
+						cout << "Information Updated\n";
+						cout << "*****************************\n";
+						myfile << idsearch << " " << "(Updated) to " << m4.id << " " << "SixMonth" << " " << m4.name << " " << m4.cashin << endl;
+						break;
+					}
+
+				case 4:
+					cout << "Cash In\n";
+					cin >> m4.cashin;
+					if (m4.cashin < 15000)
+					{
+						cout << " Get Some money Bro\n";
+						break;
+					}
+					else
+					{
+						cout << "Thanks For Choosing our Gym\n";
+						cout << "*****************************\n";
+						cout << "Information Updated\n";
+						cout << "*****************************\n\n";
+						myfile <<idsearch<<" "<< "(Updated) to " << m4.id << " " << "OneYear" << " " << m4.name << " " << m4.cashin << endl;
+						break;
+					}
+				}
+
+
+				
+				
+			}
+			if (k == 2) {
+				myfile.close();
+			}
+
+			break;
+
+
+		}
+	}
+	else if (choice == 3)
+	Menu();
+	
+}
+
